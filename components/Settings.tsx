@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Theme, BudgetConfig, DEFAULT_CATEGORIES } from '../types';
 import { THEMES, CURRENCIES } from '../constants';
-import { Download, Upload, RefreshCw, X } from 'lucide-react';
+import { Download, Upload, RefreshCw, X, Database, Lock } from 'lucide-react';
 
 interface SettingsProps {
   theme: Theme;
@@ -15,10 +15,11 @@ interface SettingsProps {
   resetData: () => void;
   currency: string;
   setCurrency: (c: string) => void;
+  deviceId: string;
 }
 
 const Settings: React.FC<SettingsProps> = ({ 
-  theme, categories, budget, setThemeId, setCategories, setBudget, exportData, importData, resetData, currency, setCurrency
+  theme, categories, budget, setThemeId, setCategories, setBudget, exportData, importData, resetData, currency, setCurrency, deviceId
 }) => {
   const [newTag, setNewTag] = useState('');
   const [importText, setImportText] = useState('');
@@ -68,7 +69,7 @@ const Settings: React.FC<SettingsProps> = ({
             className={`w-full p-3 bg-transparent border-2 ${theme.border} text-sm font-bold uppercase rounded-none focus:outline-none`}
         >
             {CURRENCIES.map(c => (
-                <option key={c.code} value={c.code} className="bg-black text-white">{c.code} - {c.name}</option>
+                <option key={c.code} value={c.code} className="text-black">{c.code} - {c.name}</option>
             ))}
         </select>
       </section>
@@ -158,6 +159,31 @@ const Settings: React.FC<SettingsProps> = ({
             <button onClick={() => { if(confirm('INITIATE SYSTEM WIPE? ALL DATA WILL BE LOST.')) resetData() }} className="text-red-500 text-[10px] uppercase font-bold hover:underline w-full text-center">
                 [DANGER] FACTORY RESET
             </button>
+        </div>
+      </section>
+
+      {/* Security Info */}
+      <section>
+        <h3 className="text-[10px] uppercase font-bold tracking-widest border-b border-current pb-2 mb-4">Privacy_Core</h3>
+        <div className="space-y-4 border border-current p-4 bg-current bg-opacity-5">
+            <div className="flex items-start gap-3">
+                <Database size={16} className="mt-1 flex-shrink-0" />
+                <div className="space-y-1">
+                   <div className="text-[10px] font-bold uppercase">Local Storage Encryption</div>
+                   <p className="text-[10px] opacity-70 leading-relaxed">
+                       All data is stored exclusively on this device's internal storage. No data is ever transmitted to external servers.
+                   </p>
+                </div>
+            </div>
+            <div className="flex items-start gap-3">
+                <Lock size={16} className="mt-1 flex-shrink-0" />
+                <div className="space-y-1">
+                   <div className="text-[10px] font-bold uppercase">Unique Device Signature</div>
+                   <p className="text-[10px] opacity-70 leading-relaxed break-all font-mono">
+                       ID: {deviceId}
+                   </p>
+                </div>
+            </div>
         </div>
       </section>
     </div>

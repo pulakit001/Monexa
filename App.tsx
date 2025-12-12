@@ -19,6 +19,9 @@ const App: React.FC = () => {
   const [themeId, setThemeId] = useStickyState<string>('ink-white', 'mono-theme-v1');
   const [currency, setCurrency] = useStickyState<string>('USD', 'mono-currency-v1');
   
+  // Device Identity - Ensures unique persistence per device
+  const [deviceId] = useStickyState<string>(uuidv4(), 'mono-device-id-v1');
+  
   // Onboarding State
   const [hasCompletedOnboarding, setHasCompletedOnboarding] = useStickyState<boolean>(false, 'mono-onboarding-v1');
 
@@ -47,7 +50,7 @@ const App: React.FC = () => {
   };
 
   const exportData = () => {
-    const dataStr = JSON.stringify({ expenses, categories, budget, currency });
+    const dataStr = JSON.stringify({ expenses, categories, budget, currency, deviceId });
     const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
     const exportFileDefaultName = `monoledger_backup_${new Date().toISOString().slice(0,10)}.json`;
     const linkElement = document.createElement('a');
@@ -134,6 +137,7 @@ const App: React.FC = () => {
               resetData={resetData}
               currency={currency}
               setCurrency={setCurrency}
+              deviceId={deviceId}
             />
           } />
           <Route path="*" element={<Navigate to="/" replace />} />

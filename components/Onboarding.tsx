@@ -155,7 +155,11 @@ const Onboarding: React.FC<OnboardingProps> = ({ theme, onComplete, setBudget, c
               <button
                 key={c.code}
                 onClick={() => setCurrency(c.code)}
-                className={`w-full flex items-center justify-between p-4 border-b ${theme.border} text-left transition-all ${currency === c.code ? 'bg-current bg-opacity-5 border-l-4 border-l-current pl-5' : 'hover:bg-current hover:bg-opacity-5 opacity-70 hover:opacity-100 border-l-0'}`}
+                className={`w-full flex items-center justify-between p-4 border-b ${theme.border} text-left transition-all ${
+                  currency === c.code 
+                    ? 'border-l-4 border-current pl-6 font-bold opacity-100' 
+                    : 'opacity-60 hover:opacity-100 hover:pl-5 border-l-0'
+                }`}
               >
                 <div className="flex flex-col">
                   <span className="font-bold text-sm">{c.code}</span>
@@ -210,9 +214,9 @@ const Onboarding: React.FC<OnboardingProps> = ({ theme, onComplete, setBudget, c
 
             <div className="flex flex-wrap gap-2 content-start overflow-y-auto">
                 {categories.map(c => (
-                    <div key={c} className={`group border-2 ${theme.border} px-3 py-2 text-xs font-bold uppercase flex items-center gap-2 cursor-default bg-current bg-opacity-5`}>
+                    <div key={c} className={`group border-2 ${theme.border} px-3 py-2 text-xs font-bold uppercase flex items-center gap-2 cursor-default hover:text-red-500 transition-colors`}>
                         {c}
-                        <button onClick={() => removeTag(c)} className="opacity-40 group-hover:opacity-100 hover:text-red-500">
+                        <button onClick={() => removeTag(c)} className="opacity-40 group-hover:opacity-100">
                             <X size={12} />
                         </button>
                     </div>

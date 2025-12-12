@@ -94,7 +94,7 @@ const Input: React.FC<InputProps> = ({ theme, categories, onAdd, budget, current
                 onChange={(e) => setCategory(e.target.value)}
                 className={`w-full bg-transparent text-sm font-bold p-3 border-2 ${theme.border} appearance-none rounded-none focus:outline-none uppercase`}
               >
-                {categories.map(c => <option key={c} value={c} className="bg-black text-white">{c}</option>)}
+                {categories.map(c => <option key={c} value={c} className="text-black">{c}</option>)}
               </select>
               <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none opacity-50 text-[10px]">▼</div>
             </div>
